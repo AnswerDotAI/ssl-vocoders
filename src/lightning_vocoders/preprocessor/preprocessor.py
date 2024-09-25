@@ -77,14 +77,14 @@ class Preprocessor:
                 ssl_model.to("cuda")
                 output = ssl_model(**inputs, output_hidden_states=True)
                 sample[feature_cfg.key] = webdataset.torch_dumps(
-                    output.hidden_states[feature_cfg.layer][0].cpu()
+                    output.hidden_states[feature_cfg.layer][0].cuda()
                 )
             else:
                 ssl_model.to("cuda")
                 wav_tensor = wav_tensor.unsqueeze(1).to('cuda')
                 output = ssl_model({"x": wav_tensor},sample_rate=feature_cfg.sr)
                 sample[feature_cfg.key] = webdataset.torch_dumps(
-                    output.hidden_states[feature_cfg.layer][0].cpu()
+                    output.hidden_states[feature_cfg.layer][0].cuda()
                 )
         if self.use_xvector:
             resampled_for_xvector = torchaudio.functional.resample(
