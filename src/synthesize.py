@@ -20,7 +20,6 @@ def synthesize(cfg:DictConfig,ckpt_path:Path,wav_path:Path,output_path):
     def test_collate_fn(sample):
         assert len(sample) == 1 # only expect batch size of 1
         wav_name, (wav_data,sr), wav_path = sample[0]
-        print(wav_data.size())
         wav_data = wav_data[0].unsqueeze(0)
         preprocessed_sample = preprocessor.process_utterance(wav_name,wav_data,sr,wav_path)
         for k,v in preprocessed_sample.items():

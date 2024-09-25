@@ -52,7 +52,6 @@ class Preprocessor:
         )[
             0
         ]  # remove channel dimension only support mono
-        print(wavform.size())
         waveform = waveform[:20*self.sampling_rate]
 
         mel_spec, energy = self.calc_spectrogram(waveform)
